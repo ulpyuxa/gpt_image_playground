@@ -81,7 +81,7 @@
       "name": "默认",
       "provider": "openai",
       "baseUrl": "https://api.openai.com/v1",
-      "model": "gpt-image-2",
+      "model": "gpt-image-2.5-sunburst",
       "apiMode": "images",
       "isDefault": true
     },
@@ -130,25 +130,6 @@
       "model": "gpt-image-2",
       "apiMode": "images",
       "apiProxy": false
-    },
-    {
-      "id": "sui-xiang",
-      "name": "随想AI中转站",
-      "description": "[随想AI中转站](https://sui-xiang.com) 是一家可靠高效的 API 中转服务提供商，提供 Claude、Codex、Gemini 等的中继服务。注重隐私的中转站·无数据倒卖·无模型掺水，极速售后，99.9% 可用性。新账户注册每日签到就送 0.5 元测试额度，充值 1:1。",
-      "provider": "openai",
-      "baseUrl": "https://sui-xiang.com/v1",
-      "model": "gpt-image-2",
-      "apiMode": "images",
-      "codexCli": true
-    },
-    {
-      "id": "hezu-bus",
-      "name": "合租巴士",
-      "description": "[合租巴士](https://hezu.ink/sign-up?aff=jCQK) 是一家可靠高效 AI 中转服务平台，主要提供 Claude Code、Codex 等主流模型的高稳定中转能力，充值比例透明（1:1），Codex 倍率补贴低至 0.15。[进群送 3 刀体验金](https://hezu.ink/sign-up?aff=jCQK)",
-      "provider": "openai",
-      "baseUrl": "https://img.hezubus.cc/v1",
-      "model": "gpt-image-2",
-      "apiMode": "images"
     },
     {
       "id": "sublyx",

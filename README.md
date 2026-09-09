@@ -8,7 +8,7 @@
 [![React](https://img.shields.io/badge/React-19-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-**基于 OpenAI gpt-image-2 API 的图片生成与编辑工具**
+**基于 OpenAI gpt-image-2.5 API 的图片生成与编辑工具**
 
 提供简洁精美的 Web UI，支持 OpenAI / OpenAI 兼容接口、sub2api（异步）、fal.ai 与可导入的自定义 HTTP 供应商。<br>
 支持文本生图、参考图与遮罩编辑，数据纯本地化存储，带来流畅的历史记录与参数管理体验。
@@ -59,18 +59,6 @@
   <a href="https://9527.codes"><img src="https://github.com/user-attachments/assets/29eba620-e902-42f9-9c3b-2fb2d7b2e310" alt="9527 CODE" width="150"></a>
 </td>
 <td valign="middle"><b><a href="https://9527.codes">9527 CODE</a></b>&nbsp;是企业级满血 AI 中转服务平台，专注提供 Claude Code、Codex 等主流模型的高稳定中转能力，为企业级 AI 使用提供稳定、合规、高效的一站式解决方案。</td>
-</tr>
-<tr>
-<td width="180" align="center" valign="middle">
-  <a href="https://sui-xiang.com"><img src="https://github.com/user-attachments/assets/fc64d112-c820-4e2e-ad34-728b3b9c9dd8" alt="随想AI中转站" width="150"></a>
-</td>
-<td valign="middle"><b><a href="https://sui-xiang.com">随想AI中转站</a></b>&nbsp;是一家可靠高效的 API 中转服务提供商，提供 Claude、Codex、Gemini 等的中继服务。注重隐私的中转站·无数据倒卖·无模型掺水，极速售后，99.9% 可用性。新账户注册每日签到就送 0.5 元测试额度，充值 1:1。</td>
-</tr>
-<tr>
-<td width="180" align="center" valign="middle">
-  <a href="https://hezu.ink/sign-up?aff=jCQK"><img src="https://github.com/user-attachments/assets/ffef7d1d-8dfc-4549-8263-8334aaf104d3" alt="合租巴士" width="150"></a>
-</td>
-<td valign="middle"><b><a href="https://hezu.ink/sign-up?aff=jCQK">合租巴士</a></b>&nbsp;是一家可靠高效 AI 中转服务平台，主要提供 Claude Code、Codex 等主流模型的高稳定中转能力，充值比例透明（1:1），Codex 倍率补贴低至 0.15。<a href="https://hezu.ink/sign-up?aff=jCQK">进群送 3 刀体验金</a></td>
 </tr>
 <tr>
 <td width="180" align="center" valign="middle">
@@ -186,7 +174,7 @@
 | 填写方式 | 说明 | 示例 |
 |------|------|------|
 | **直接填写 API 地址** | 自动创建一个 OpenAI 兼容的默认预置配置（ID 为 `default-openai`）并注入 API URL，其余参数（模型、超时等）使用应用默认值，用户只需补充 API Key。末尾带 `/` 时直接拼接接口，不补 `/v1` 前缀。适合只提供一个配置的部署。后续如需通过 JSON 或链接更新此配置，指定 `id` 为 `default-openai` 即可。 | `https://api.openai.com/v1` |
-| **API 地址 + 查询参数** | 在地址后追加参数，可同时预填 Key、模型等字段。 | `https://api.openai.com/v1?model=gpt-image-2&apiMode=responses` |
+| **API 地址 + 查询参数** | 在地址后追加参数，可同时预填 Key、模型等字段。 | `https://api.openai.com/v1?model=gpt-image-2.5-sunburst&apiMode=images` |
 | **JSON 配置文件 / 导入链接** | 通过仓库内或本地的 JSON 文件路径（如 `./config.json`）、远程 URL 或含 `?settings=` 参数的导入链接提供完整预置配置，支持预置多个配置（OpenAI 兼容、sub2api（异步）、fal.ai 或自定义供应商）。 | 详见 [预置配置 JSON 格式](#preset-config-json) |
 
 **环境变量一览**
@@ -224,7 +212,7 @@
 VITE_DEFAULT_API_URL=https://api.openai.com/v1
 ```
 
-**部署**
+**初始部署**
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FCookSleep%2Fgpt_image_playground&project-name=gpt-image-playground&repository-name=gpt-image-playground)
 
@@ -232,21 +220,23 @@ VITE_DEFAULT_API_URL=https://api.openai.com/v1
 
 **绑定自定义域名 (国内直连)**：Vercel 默认分配的 `.vercel.app` 域名在国内通常无法直接访问。如果你希望在国内直连访问，请在 Vercel 项目的 **Settings → Domains** 中绑定你自己的域名。
 
-**配置自动更新**：
+**更新方式**
 
-本项目已在 `vercel.json` 中关闭了默认的自动部署。若你 Fork 了本仓库，并希望在同步本仓库的新版本后自动更新 Vercel 部署：
+本项目已在 `vercel.json` 中关闭了默认的自动部署。若你 Fork 了本仓库，建议配置 Deploy Hook 以实现新版本自动构建：
 
-1. 在 Vercel 项目设置 **Settings -> Git** 的 **Deploy Hooks** 中创建一个名为 `Release` 的 Hook（Branch 填 `main`）并复制生成的 URL。
-2. 在你 Fork 的 GitHub 仓库设置 **Settings -> Secrets and variables -> Actions** 中，新建 Secret `VERCEL_DEPLOY_HOOK`，填入刚才的 URL。
+1. 在 Vercel 项目的 **Settings → Git → Deploy Hooks** 中创建一个名为 `Release` 的 Hook（Branch 填 `main`）并复制生成的 URL。
+2. 在你 Fork 的 GitHub 仓库 **Settings → Secrets and variables → Actions** 中，新建 Secret `VERCEL_DEPLOY_HOOK`，填入刚才的 URL。
 
-此后，只有在本仓库发布了正式版本（即包含新 Release / 版本号变动）时，在你的 Fork 页面点击 **Sync fork** 才会自动触发 Vercel 构建部署；日常的普通代码提交不会触发部署。
+配置完成后：
+- **自动更新**：只有在本仓库发布了正式版本（即包含新 Release / 版本号变动）时，在你的 Fork 页面点击 **Sync fork** 才会自动触发 Vercel 构建部署；日常的普通代码提交不会触发部署。
+- **手动触发**：若需立即部署最新代码（包括未发布正式版本的日常提交），可进入仓库顶部的 **Actions** 标签页，在左侧选择 **Deploy to Vercel**，点击右侧的 **Run workflow** 下拉按钮（分支选择 `main`），点击绿色的 **Run workflow** 按钮即可手动部署。
 
 </details>
 
 <details>
 <summary><strong>🌐 方式二：GitHub Pages 部署</strong></summary>
 
-支持通过 GitHub Actions 工作流将静态页面一键发布至 GitHub Pages。
+支持通过 GitHub Actions 工作流将静态页面发布至 GitHub Pages。
 
 **预置配置**
 
@@ -256,11 +246,15 @@ VITE_DEFAULT_API_URL=https://api.openai.com/v1
 VITE_DEFAULT_API_URL=https://api.openai.com/v1
 ```
 
-**部署**
+**初始部署**
 
 1. 在 GitHub 仓库的 **Settings → Pages** 中，将 **Build and deployment → Source** 设置为 **GitHub Actions**。
-2. 进入仓库顶部的 **Actions** 标签页，在左侧工作流列表中选择 **Deploy to GitHub Pages**。
-3. 点击右侧的 **Run workflow** 下拉按钮，分支选择 `main`，然后点击绿色的 **Run workflow** 按钮开始构建部署。
+2. 进入仓库顶部的 **Actions** 标签页，在左侧选择 **Deploy to GitHub Pages**，点击右侧的 **Run workflow** 下拉按钮（分支选择 `main`），点击绿色的 **Run workflow** 按钮完成首次构建部署。
+
+**更新方式**
+
+- **自动更新**：只有在本仓库发布了正式版本（即包含新 Release / 版本号变动）时，在你的 Fork 页面点击 **Sync fork** 才会自动触发构建并部署至 GitHub Pages；日常的普通代码提交不会触发部署。
+- **手动触发**：若需立即部署最新代码（包括未发布正式版本的日常提交），可进入仓库顶部的 **Actions** 标签页，在左侧选择 **Deploy to GitHub Pages**，点击右侧的 **Run workflow** 下拉按钮（分支选择 `main`），点击绿色的 **Run workflow** 按钮即可手动部署。
 
 </details>
 
@@ -435,7 +429,8 @@ npm run build
 |------|------|------|
 | `apiUrl` | API Base URL | `?apiUrl=https://api.example.com/v1` |
 | `apiKey` | API Key | `?apiKey=sk-xxxx` |
-| `model` | 模型 ID（未传时按 apiMode 使用默认模型） | `?model=gpt-image-2` |
+| `model` | 模型 ID | `?model=gpt-image-2.5-sunburst` |
+| `imageGenerationModel` | Responses API 的图像生成工具模型，留空使用 API 默认值 | `?imageGenerationModel=gpt-image-2.5-sunburst` |
 | `apiMode` | `images` 或 `responses`，默认 `images` | `?apiMode=responses` |
 | `profileName` | 配置名称，默认“URL 参数配置” | `?profileName=我的配置` |
 | `reasoningEffort` | Responses API 推理强度 | `?reasoningEffort=high` |
@@ -474,6 +469,7 @@ https://cooksleep.github.io/gpt_image_playground?apiUrl={address}&apiKey={key}&m
 | `baseUrl` | 是 | API 基础地址（Base URL）。未以 `/` 结尾时遵循 OpenAI 规则自动补齐 `/v1` 前缀；以 `/` 结尾时直接基于该地址请求接口，不补 `/v1`；fal.ai 可留空。 |
 | `apiKey` | 否 | API Key。建议省略，让用户导入后自行填写。 |
 | `model` | 是 | 默认模型 ID。 |
+| `imageGenerationModel` | 否 | Responses API 的 `image_generation` 工具模型，默认 `gpt-image-2.5-sunburst`；也可使用 `gpt-image-2.5-flare`。留空时不发送工具模型 ID，保持 API 默认值。 |
 | `apiMode` | 否 | `"images"` 或 `"responses"`，默认 `"images"`。 |
 | `isDefault` | 否 | 有多个配置时，为默认项设置 `true`（只能有一个）；只有一个配置时不填。默认项决定首次使用时自动选中的配置；允许拖动排序和删除（受保护策略控制）。 |
 | `timeout` | 否 | 请求超时秒数，默认 600。 |
@@ -492,7 +488,7 @@ https://cooksleep.github.io/gpt_image_playground?apiUrl={address}&apiKey={key}&m
       "description": "使用前请阅读 [接口说明](https://example.com/docs)。",
       "provider": "openai",
       "baseUrl": "https://api.openai.com/v1",
-      "model": "gpt-image-2"
+      "model": "gpt-image-2.5-sunburst"
     }
   ]
 }
@@ -509,7 +505,7 @@ https://cooksleep.github.io/gpt_image_playground?apiUrl={address}&apiKey={key}&m
       "name": "OpenAI",
       "provider": "openai",
       "baseUrl": "https://api.openai.com/v1",
-      "model": "gpt-image-2",
+      "model": "gpt-image-2.5-sunburst",
       "isDefault": true
     },
     {
@@ -517,7 +513,7 @@ https://cooksleep.github.io/gpt_image_playground?apiUrl={address}&apiKey={key}&m
       "name": "sub2api 异步",
       "provider": "sb2api-async",
       "baseUrl": "https://api.example.com/v1",
-      "model": "gpt-image-2"
+      "model": "gpt-image-2.5-sunburst"
     },
     {
       "id": "fal-profile",
@@ -633,7 +629,7 @@ VITE_DEFAULT_API_URL=https://example.com/gpt-image-config.json
       "name": "示例异步任务供应商",
       "provider": "custom-example-task",
       "baseUrl": "https://api.example.com/v1",
-      "model": "gpt-image-2",
+      "model": "gpt-image-2.5-sunburst",
       "apiMode": "images"
     }
   ]
